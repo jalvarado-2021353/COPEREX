@@ -8,7 +8,7 @@ export const createDefaultAdmin = async () => {
     try {
         const existingAdmin = await User.findOne({ role: 'ADMIN' });
         if (!existingAdmin) {
-            const hashedPassword = await encrypt('Admin123!');
+            const hashedPassword = await encrypt('Default1.');
             const defaultAdmin = new User({
                 name: 'admin',
                 surname: 'default',

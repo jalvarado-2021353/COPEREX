@@ -7,6 +7,10 @@ import helmet from 'helmet'
 import cors from 'cors' 
 import { limiter } from '../middlewares/rate.limit.js'
 import userRoutes from '../src/user/user.routes.js'
+import { createDefaultAdmin } from '../src/user/user.controller.js';
+import companyRoutes from '../src/company/company.routes.js'
+import reportRoutes from '../src/report/report.routes.js'
+import path from 'path'
 
 const configs = (app)=>{
     app.use(express.json()) 
@@ -15,13 +19,15 @@ const configs = (app)=>{
     app.use(helmet())
     app.use(limiter)
     app.use(morgan('dev'))
+const reportsPath = path.join(process.cwd(), "reports");
+    app.use("/reports", express.static(reportsPath));
 }
 
 const routes = (app)=>{
+    app.use(userRoutes)
     app.use('/v1/user', userRoutes)
-    //app.use('/v1/categories', categoriesRoutes)
-    //app.use('/v1/post', postRoutes)
-    //app.use('/v1/comment', commentRoutes)
+    app.use('/v1/company', companyRoutes)
+    app.use('/v1/reports', reportRoutes)
 }
 
 
@@ -29,6 +35,7 @@ const routes = (app)=>{
 export const initServer = async()=>{
     const app = express() //Instancia de express
     try{
+        await createDefaultAdmin();
         configs(app) //Aplicar configuraciones al servidor
         routes(app)
         app.listen(process.env.PORT)

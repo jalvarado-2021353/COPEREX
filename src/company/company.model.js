@@ -17,7 +17,7 @@ const companySchema = new Schema(
         impactLevel: {
             type: String,
             required: [true, "Impact level is required"],
-            enum: ["Bajo", "Medio", "Alto"], // Valores predefinidos
+            enum: ["Bajo", "Medio", "Alto"], 
         },
         trajectoryYears: {
             type: Number,
@@ -31,7 +31,7 @@ const companySchema = new Schema(
         },
         status: {
             type: Boolean,
-            default: true, // Permite activar/desactivar una empresa
+            default: true, 
         }
     }
 )

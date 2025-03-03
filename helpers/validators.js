@@ -1,5 +1,5 @@
 //Validar campos en las rutas
-import { body } from "express-validator" //Capturar todo el body de la solicitud
+import { body } from "express-validator" 
 import { validateErrors } from "./validate.error.js"
 
 export const loginValidator = [
